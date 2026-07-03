@@ -1,0 +1,24 @@
+# ProduGen - Python Dependencies
+
+# Web Framework
+fastapi==0.115.12
+uvicorn[standard]==0.34.3
+
+# AI Services
+google-generativeai==0.8.5
+replicate==1.0.5
+
+# Image Processing
+Pillow==11.2.1
+
+# Database
+# (SQLite is built-in to Python)
+
+# Environment Variables
+python-dotenv==1.1.0
+
+# File Upload Handling
+python-multipart==0.0.20
+
+# Utilities
+uuid6==2024.7.10
