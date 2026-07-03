@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProduGen - AI Product Image Generator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>🚀 ProduGen</h1>
+        <p>AI Product Image Generator for Small Businesses</p>
+        <div id="api-status"></div>
+    </header>
+
+    <main>
+        <!-- Step 1: AI Chat Questionnaire -->
+        <section id="chat-section" class="section">
+            <h2>Step 1: Tell us about your product</h2>
+            <p class="subtitle">Chat with our AI to describe your product. It will ask you smart questions.</p>
+
+            <div id="chat-container">
+                <div id="chat-messages"></div>
+                <div id="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Type your answer..." disabled>
+                    <button id="chat-send-btn" disabled>Send</button>
+                </div>
+            </div>
+            <button id="start-chat-btn" class="btn-primary">Start Chat with AI</button>
+        </section>
+
+        <!-- Step 2: Upload Product Image -->
+        <section id="upload-section" class="section hidden">
+            <h2>Step 2: Upload your product image</h2>
+            <p class="subtitle">Upload a photo of your product. The AI will use it as reference.</p>
+
+            <div id="upload-zone">
+                <div id="upload-placeholder">
+                    <span class="upload-icon">📷</span>
+                    <p>Drag & drop your product image here</p>
+                    <p class="small">or click to browse (JPG, PNG, WebP — max 10MB)</p>
+                </div>
+                <img id="upload-preview" class="hidden" alt="Product preview">
+                <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" hidden>
+            </div>
+            <button id="upload-btn" class="btn-primary hidden">Upload Image</button>
+        </section>
+
+        <!-- Step 3: Generate Images -->
+        <section id="generate-section" class="section hidden">
+            <h2>Step 3: Generate product images</h2>
+            <p class="subtitle">Choose how many images and for which platform.</p>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="num-images">Number of images:</label>
+                    <select id="num-images">
+                        <option value="1">1 image (Studio shot)</option>
+                        <option value="3" selected>3 images (Studio + Lifestyle + Social)</option>
+                        <option value="5">5 images (All variations)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="platform">Platform:</label>
+                    <select id="platform">
+                        <option value="instagram_post">Instagram Post (1080×1080)</option>
+                        <option value="instagram_story">Instagram Story (1080×1920)</option>
+                        <option value="facebook_post">Facebook Post (1200×630)</option>
+                        <option value="website_banner">Website Banner (1920×1080)</option>
+                        <option value="square">Square (1024×1024)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button id="generate-btn" class="btn-primary">🎨 Generate Images</button>
+            <div id="generate-progress" class="hidden">
+                <div class="spinner"></div>
+                <p id="progress-text">Generating images... This may take a minute.</p>
+            </div>
+        </section>
+
+        <!-- Step 4: Results -->
+        <section id="results-section" class="section hidden">
+            <h2>✅ Your Product Images</h2>
+            <p class="subtitle">Download your generated images below.</p>
+            <div id="results-grid"></div>
+            <button id="new-session-btn" class="btn-secondary">Start New Session</button>
+        </section>
+
+        <!-- Brief Preview (shown after chat completion) -->
+        <div id="brief-preview" class="hidden">
+            <h3>📋 Generation Brief</h3>
+            <pre id="brief-content"></pre>
+        </div>
+    </main>
+
+    <footer>
+        <p>ProduGen v0.1.0 — Built by <a href="https://github.com/mustafaitmcollege-design" target="_blank">Mustafa Shirawala</a></p>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
