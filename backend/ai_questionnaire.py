@@ -4,7 +4,8 @@ Uses Google Gemini API to conduct an intelligent product interview.
 """
 
 import json
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from backend.config import Config
 from backend.prompts import QUESTIONNAIRE_SYSTEM_PROMPT
 
@@ -16,7 +17,7 @@ class AIQuestionnaire:
     """
 
     def __init__(self):
-        """Initialize the Gemini model and configure the API."""
+        """Initialize the Gemini client and configure the API."""
         if not Config.GEMINI_API_KEY or Config.GEMINI_API_KEY == "your_gemini_api_key_here":
             raise ValueError(
                 "Gemini API key not configured. "
@@ -24,12 +25,8 @@ class AIQuestionnaire:
                 "and add it to your .env file."
             )
 
-        genai.configure(api_key=Config.GEMINI_API_KEY)
-
-        self.model = genai.GenerativeModel(
-            model_name="gemini-2.0-flash",
-            system_instruction=QUESTIONNAIRE_SYSTEM_PROMPT,
-        )
+        self.client = genai.Client(api_key=Config.GEMINI_API_KEY)
+        self.model_name = "gemini-2.0-flash"
 
     def start_session(self) -> dict:
         """
@@ -38,7 +35,12 @@ class AIQuestionnaire:
         Returns:
             dict with session chat object and the AI's greeting message.
         """
-        chat = self.model.start_chat(history=[])
+        chat = self.client.chats.create(
+            model=self.model_name,
+            config=types.GenerateContentConfig(
+                system_instruction=QUESTIONNAIRE_SYSTEM_PROMPT,
+            ),
+        )
 
         # Get the AI's opening greeting/question
         response = chat.send_message(
