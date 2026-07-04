@@ -57,7 +57,7 @@ def init_db():
 
     conn.commit()
     conn.close()
-    print("💾 Database initialized successfully")
+    print("[DB] Database initialized successfully")
 
 
 # =============================================================================
