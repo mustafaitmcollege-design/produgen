@@ -255,13 +255,6 @@ async def get_session(session_id: str):
     return session
 
 
-@app.get("/api/images/{session_id}")
-async def get_session_images(session_id: str):
-    """Get all generated images for a session."""
-    images = db.get_session_images(session_id)
-    return {"session_id": session_id, "images": images}
-
-
 @app.get("/api/images/file/{session_id}/{filename}")
 async def serve_image(session_id: str, filename: str):
     """Serve a generated image file."""
@@ -269,6 +262,13 @@ async def serve_image(session_id: str, filename: str):
     if not os.path.exists(filepath):
         raise HTTPException(status_code=404, detail="Image not found")
     return FileResponse(filepath, media_type="image/png")
+
+
+@app.get("/api/images/{session_id}")
+async def get_session_images(session_id: str):
+    """Get all generated images for a session."""
+    images = db.get_session_images(session_id)
+    return {"session_id": session_id, "images": images}
 
 
 @app.get("/api/uploads/{filename}")
